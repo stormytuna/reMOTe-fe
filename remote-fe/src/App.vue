@@ -2,7 +2,8 @@
   <!-- <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> -->
   <div>
-    <Header title="reMOTe services" />
+    <Header />
+    <TechnicianPage />
   </div>
 
   <!-- <router-view /> -->
@@ -10,10 +11,13 @@
 <script>
 import Header from "./components/Header.vue";
 
+import TechnicianPage from "./components/TechnicianPage.vue";
+
 export default {
   name: "App",
   components: {
     Header,
+    TechnicianPage,
   },
 };
 </script>
@@ -41,28 +45,33 @@ ul {
   padding: 0;
 }
 .container {
-  padding-left: 15px;
-  padding-right: 15px;
   margin-left: auto;
   margin-right: auto;
 }
 /* Small */
 @media (min-width: 768px) {
   .container {
-    width: 750px;
+    width: 760px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 /* Medium */
 @media (min-width: 992px) {
   .container {
     width: 970px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
 /* Large */
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
+
 /* End Global Rules */
 </style>
