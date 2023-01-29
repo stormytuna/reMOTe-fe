@@ -3,21 +3,23 @@
     <router-link to="/about">About</router-link> -->
   <div>
     <Header />
-    <TechnicianPage />
+    <router-view />
+
   </div>
 
   <!-- <router-view /> -->
 </template>
 <script>
 import Header from "./components/Header.vue";
-
 import TechnicianPage from "./components/TechnicianPage.vue";
+import SingleTechnician from "./components/SingleTechnician.vue";
 
 export default {
   name: "App",
   components: {
     Header,
     TechnicianPage,
+    SingleTechnician,
   },
 };
 </script>
@@ -28,6 +30,7 @@ export default {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  
 }
 body {
   font-family: "Open Sans", sans-serif;

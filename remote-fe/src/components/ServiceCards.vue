@@ -67,16 +67,18 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.intervalId = setInterval(() => {
-        this.$refs.scrollContainer.scrollLeft += this.direction;
-        this.scrollPosition += this.direction;
-        if (this.scrollPosition >= 30) {
-          this.direction = -1;
-        } else if (this.scrollPosition <= 0) {
-          this.direction = 1;
-          clearInterval(this.intervalId);
-        }
-      }, 15);
+      this.$nextTick(() => {
+        this.intervalId = setInterval(() => {
+          this.$refs.scrollContainer.scrollLeft += this.direction;
+          this.scrollPosition += this.direction;
+          if (this.scrollPosition >= 30) {
+            this.direction = -1;
+          } else if (this.scrollPosition <= 0) {
+            this.direction = 1;
+            clearInterval(this.intervalId);
+          }
+        }, 15);
+      });
     }, 2000);
   },
 };
@@ -106,7 +108,7 @@ export default {
 }
 .card-text {
   font-size: 0.875rem;
-  padding-top: 10px
+  padding-top: 10px;
 }
 
 @media (max-width: 700px) {
