@@ -11,8 +11,7 @@
                      <p class="text-muted mb-2">@username</p>
                      <p class="text-muted mb-1">Technician/User</p>
                      <div class="d-flex justify-content-center mb-2">
-                        <button type="button" class="btn btn-primary">Follow</button>
-                        <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                        <button type="button" class="btn btn-primary">Follows</button>
                      </div>
                   </div>
                </div>
