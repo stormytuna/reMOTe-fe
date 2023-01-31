@@ -3,8 +3,8 @@
     <router-link to="/about">About</router-link> -->
   <div>
     <Header />
+    <!-- <Sike /> -->
     <router-view />
-
   </div>
 
   <!-- <router-view /> -->
@@ -13,6 +13,7 @@
 import Header from "./components/Header.vue";
 import TechnicianPage from "./components/TechnicianPage.vue";
 import SingleTechnician from "./components/SingleTechnician.vue";
+import Sike from "./components/Sike.vue";
 
 export default {
   name: "App",
@@ -20,6 +21,7 @@ export default {
     Header,
     TechnicianPage,
     SingleTechnician,
+    Sike,
   },
 };
 </script>
@@ -30,7 +32,6 @@ export default {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  
 }
 body {
   font-family: "Open Sans", sans-serif;

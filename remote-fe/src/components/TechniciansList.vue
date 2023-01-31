@@ -1,5 +1,12 @@
 <template>
-  <div class="card-list">
+  <div
+    v-if="loading"
+    class="spinner-border text-danger container d-flex justify-content-center"
+    role="status"
+  >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div v-else class="card-list">
     <h2 class="title">All Technicians</h2>
     <div class="card" v-for="card in cards" :key="card._id">
       <router-link :to="{ path: '/technicians/technician_id' }">
@@ -61,398 +68,15 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "TechniciansList",
 
   data() {
     return {
+      loading: true,
+      cards: null,
       windowWidth: 0,
-      cards: [
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch ",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://media.istockphoto.com/id/1248187106/photo/happy-customer-and-auto-mechanic-using-touchpad-in-a-workshop.jpg?s=612x612&w=0&k=20&c=7C4TtL1wJ8LTYq0HTwhHWX9Y2NjBdqcxTt6-o3EKHEo=",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown and recovery",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres, wheels and tracking",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://i1.wp.com/insurance-edge.net/wp-content/uploads/2020/03/fixter-collect-and-deliver-car-servicing-sanitised-cleaning.jpg?fit=536%2C298",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown and recovery",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres, wheels and tracking",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://www.cannonautorepair.com/images/mechanic_with_customer.jpeg",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown and recovery",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres, wheels and tracking",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://www.radiatorland.com/wp-content/uploads/2018/08/RadiatorLand-578100924.jpg",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown and recovery",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres, wheels and tracking",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://cotswoldoverland.co.uk/wp-content/uploads/mechanics.jpg",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown and recovery",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres, wheels and tracking",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://evanstire.com/wp-content/uploads/2021/11/October-blog-image-768x483.jpg",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown and recovery",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: "Tyres, wheels and tracking",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://d1gymyavdvyjgt.cloudfront.net/drive/images/uploads/headers/ws_cropper/26_0x65_1200x629_1200x630_seven-signs-header.jpg",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-        // {
-        //   technician: {
-        //     _id: "63ce75449ae462be0adad72d",
-        //     username: "test-tech-01",
-        //     firstName: "James",
-        //     lastName: "Wright",
-        //     address: {
-        //       addressLine: "12 Random Place",
-        //       postcode: "KF76 9LM",
-        //     },
-        //     contact: {
-        //       phoneNumber: "32985262911",
-        //       email: "jameswright@company.com",
-        //     },
-        //     technician: {
-        //       services: [
-        //         {
-        //           name: "Clutch repairs",
-        //           price: 100,
-        //         },
-        //         {
-        //           name: "Breakdown",
-        //           price: 1000,
-        //         },
-        //         {
-        //           name: " Flat tyres",
-        //           price: 10000,
-        //         },
-        //       ],
-        //       reviews: [
-        //         {
-        //           reviewBody: "Very good services :)",
-        //           rating: 4,
-        //           reviewedBy: 1,
-        //         },
-        //         {
-        //           reviewBody: "Bad >:(",
-        //           rating: 1,
-        //           reviewedBy: "63ce75449ae462be0adad72a",
-        //         },
-        //       ],
-        //       companyPhoto:
-        //         "https://cdn.images.express.co.uk/img/dynamic/24/750x445/1100425.jpg",
-        //     },
-        //     reviews: [],
-        //     avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg",
-        //   },
-        // },
-      ],
     };
   },
   computed: {
@@ -466,13 +90,15 @@ export default {
   },
 
   mounted() {
-    fetch("https://remote-be.onrender.com/api/technicians")
-      .then((res) => res.json())
-
-      .then((data) => {
-        this.cards = data.technicians;
+    axios
+      .get("https://remote-be.onrender.com/api/technicians")
+      .then((response) => {
+        this.loading = false;
+        this.cards = response.data.technicians;
       })
-      .catch((err) => console.log(err.message));
+      .catch((error) => {
+        console.error(error);
+      });
 
     this.windowWidth = window.innerWidth;
     window.addEventListener("resize", this.handleResize);
@@ -606,3 +232,104 @@ a {
   height: 0.9rem;
 }
 </style>
+
+[ // { // technician: { // _id: "63ce75449ae462be0adad72d", // username:
+"test-tech-01", // firstName: "James", // lastName: "Wright", // address: { //
+addressLine: "12 Random Place", // postcode: "KF76 9LM", // }, // contact: { //
+phoneNumber: "32985262911", // email: "jameswright@company.com", // }, //
+technician: { // services: [ // { // name: "Clutch ", // price: 100, // }, // {
+// name: "Breakdown", // price: 1000, // }, // { // name: "Tyres", // price:
+10000, // }, // ], // reviews: [ // { // reviewBody: "Very good services :)", //
+rating: 4, // reviewedBy: 1, // }, // { // reviewBody: "Bad >:(", // rating: 1,
+// reviewedBy: "63ce75449ae462be0adad72a", // }, // ], // companyPhoto: //
+"https://media.istockphoto.com/id/1248187106/photo/happy-customer-and-auto-mechanic-using-touchpad-in-a-workshop.jpg?s=612x612&w=0&k=20&c=7C4TtL1wJ8LTYq0HTwhHWX9Y2NjBdqcxTt6-o3EKHEo=",
+// }, // reviews: [], // avatarUrl:
+"https://wallpaperaccess.com/full/3723586.jpg", // }, // }, // { // technician:
+{ // _id: "63ce75449ae462be0adad72d", // username: "test-tech-01", // firstName:
+"James", // lastName: "Wright", // address: { // addressLine: "12 Random Place",
+// postcode: "KF76 9LM", // }, // contact: { // phoneNumber: "32985262911", //
+email: "jameswright@company.com", // }, // technician: { // services: [ // { //
+name: "Clutch repairs", // price: 100, // }, // { // name: "Breakdown and
+recovery", // price: 1000, // }, // { // name: "Tyres, wheels and tracking", //
+price: 10000, // }, // ], // reviews: [ // { // reviewBody: "Very good services
+:)", // rating: 4, // reviewedBy: 1, // }, // { // reviewBody: "Bad >:(", //
+rating: 1, // reviewedBy: "63ce75449ae462be0adad72a", // }, // ], //
+companyPhoto: //
+"https://i1.wp.com/insurance-edge.net/wp-content/uploads/2020/03/fixter-collect-and-deliver-car-servicing-sanitised-cleaning.jpg?fit=536%2C298",
+// }, // reviews: [], // avatarUrl:
+"https://wallpaperaccess.com/full/3723586.jpg", // }, // }, // { // technician:
+{ // _id: "63ce75449ae462be0adad72d", // username: "test-tech-01", // firstName:
+"James", // lastName: "Wright", // address: { // addressLine: "12 Random Place",
+// postcode: "KF76 9LM", // }, // contact: { // phoneNumber: "32985262911", //
+email: "jameswright@company.com", // }, // technician: { // services: [ // { //
+name: "Clutch repairs", // price: 100, // }, // { // name: "Breakdown and
+recovery", // price: 1000, // }, // { // name: "Tyres, wheels and tracking", //
+price: 10000, // }, // ], // reviews: [ // { // reviewBody: "Very good services
+:)", // rating: 4, // reviewedBy: 1, // }, // { // reviewBody: "Bad >:(", //
+rating: 1, // reviewedBy: "63ce75449ae462be0adad72a", // }, // ], //
+companyPhoto: //
+"https://www.cannonautorepair.com/images/mechanic_with_customer.jpeg", // }, //
+reviews: [], // avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg", // },
+// }, // { // technician: { // _id: "63ce75449ae462be0adad72d", // username:
+"test-tech-01", // firstName: "James", // lastName: "Wright", // address: { //
+addressLine: "12 Random Place", // postcode: "KF76 9LM", // }, // contact: { //
+phoneNumber: "32985262911", // email: "jameswright@company.com", // }, //
+technician: { // services: [ // { // name: "Clutch repairs", // price: 100, //
+}, // { // name: "Breakdown and recovery", // price: 1000, // }, // { // name:
+"Tyres, wheels and tracking", // price: 10000, // }, // ], // reviews: [ // { //
+reviewBody: "Very good services :)", // rating: 4, // reviewedBy: 1, // }, // {
+// reviewBody: "Bad >:(", // rating: 1, // reviewedBy:
+"63ce75449ae462be0adad72a", // }, // ], // companyPhoto: //
+"https://www.radiatorland.com/wp-content/uploads/2018/08/RadiatorLand-578100924.jpg",
+// }, // reviews: [], // avatarUrl:
+"https://wallpaperaccess.com/full/3723586.jpg", // }, // }, // { // technician:
+{ // _id: "63ce75449ae462be0adad72d", // username: "test-tech-01", // firstName:
+"James", // lastName: "Wright", // address: { // addressLine: "12 Random Place",
+// postcode: "KF76 9LM", // }, // contact: { // phoneNumber: "32985262911", //
+email: "jameswright@company.com", // }, // technician: { // services: [ // { //
+name: "Clutch repairs", // price: 100, // }, // { // name: "Breakdown and
+recovery", // price: 1000, // }, // { // name: "Tyres, wheels and tracking", //
+price: 10000, // }, // ], // reviews: [ // { // reviewBody: "Very good services
+:)", // rating: 4, // reviewedBy: 1, // }, // { // reviewBody: "Bad >:(", //
+rating: 1, // reviewedBy: "63ce75449ae462be0adad72a", // }, // ], //
+companyPhoto: //
+"https://cotswoldoverland.co.uk/wp-content/uploads/mechanics.jpg", // }, //
+reviews: [], // avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg", // },
+// }, // { // technician: { // _id: "63ce75449ae462be0adad72d", // username:
+"test-tech-01", // firstName: "James", // lastName: "Wright", // address: { //
+addressLine: "12 Random Place", // postcode: "KF76 9LM", // }, // contact: { //
+phoneNumber: "32985262911", // email: "jameswright@company.com", // }, //
+technician: { // services: [ // { // name: "Clutch repairs", // price: 100, //
+}, // { // name: "Breakdown and recovery", // price: 1000, // }, // { // name:
+"Tyres, wheels and tracking", // price: 10000, // }, // ], // reviews: [ // { //
+reviewBody: "Very good services :)", // rating: 4, // reviewedBy: 1, // }, // {
+// reviewBody: "Bad >:(", // rating: 1, // reviewedBy:
+"63ce75449ae462be0adad72a", // }, // ], // companyPhoto: //
+"https://evanstire.com/wp-content/uploads/2021/11/October-blog-image-768x483.jpg",
+// }, // reviews: [], // avatarUrl:
+"https://wallpaperaccess.com/full/3723586.jpg", // }, // }, // { // technician:
+{ // _id: "63ce75449ae462be0adad72d", // username: "test-tech-01", // firstName:
+"James", // lastName: "Wright", // address: { // addressLine: "12 Random Place",
+// postcode: "KF76 9LM", // }, // contact: { // phoneNumber: "32985262911", //
+email: "jameswright@company.com", // }, // technician: { // services: [ // { //
+name: "Clutch repairs", // price: 100, // }, // { // name: "Breakdown and
+recovery", // price: 1000, // }, // { // name: "Tyres, wheels and tracking", //
+price: 10000, // }, // ], // reviews: [ // { // reviewBody: "Very good services
+:)", // rating: 4, // reviewedBy: 1, // }, // { // reviewBody: "Bad >:(", //
+rating: 1, // reviewedBy: "63ce75449ae462be0adad72a", // }, // ], //
+companyPhoto: //
+"https://d1gymyavdvyjgt.cloudfront.net/drive/images/uploads/headers/ws_cropper/26_0x65_1200x629_1200x630_seven-signs-header.jpg",
+// }, // reviews: [], // avatarUrl:
+"https://wallpaperaccess.com/full/3723586.jpg", // }, // }, // { // technician:
+{ // _id: "63ce75449ae462be0adad72d", // username: "test-tech-01", // firstName:
+"James", // lastName: "Wright", // address: { // addressLine: "12 Random Place",
+// postcode: "KF76 9LM", // }, // contact: { // phoneNumber: "32985262911", //
+email: "jameswright@company.com", // }, // technician: { // services: [ // { //
+name: "Clutch repairs", // price: 100, // }, // { // name: "Breakdown", //
+price: 1000, // }, // { // name: " Flat tyres", // price: 10000, // }, // ], //
+reviews: [ // { // reviewBody: "Very good services :)", // rating: 4, //
+reviewedBy: 1, // }, // { // reviewBody: "Bad >:(", // rating: 1, // reviewedBy:
+"63ce75449ae462be0adad72a", // }, // ], // companyPhoto: //
+"https://cdn.images.express.co.uk/img/dynamic/24/750x445/1100425.jpg", // }, //
+reviews: [], // avatarUrl: "https://wallpaperaccess.com/full/3723586.jpg", // },
+// },]

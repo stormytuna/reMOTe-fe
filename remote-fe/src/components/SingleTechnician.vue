@@ -15,7 +15,8 @@
       {{ `${card.firstName} ${card.lastName}` }}
     </h2>
 
-    <div class="card container service-container" style="width: 20rem">
+    <p class="container services-overall-title">Services</p>
+    <div class="card container service-container" style="width: 22.5rem">
       <div class="card-body">
         <div class="title-and-button">
           <div>
@@ -26,7 +27,6 @@
           <a href="#" class="btn btn-danger">Add to Basket</a>
         </div>
       </div>
-      <v-divider inset></v-divider>
       <div class="card-body">
         <div class="title-and-button">
           <div>
@@ -38,6 +38,40 @@
         </div>
       </div>
     </div>
+
+    <p class="container reviews-overall-title">Reviews</p>
+    <div class="card container service-container" style="width: 22.5rem">
+      <div class="card-body">
+        <div class="title-and-rating">
+          <h5 class="card-title">James</h5>
+          <p class="rating">
+            <font-awesome-icon icon="fa-solid fa-star" /><span class="bold">
+              10
+            </span>
+          </p>
+        </div>
+        <p class="card-text">"he is really good"</p>
+        <!-- <a href="#" class="btn btn-danger">Delete</a> -->
+      </div>
+
+      <div class="card-body">
+        <div class="title-and-rating">
+          <h5 class="card-title">James</h5>
+          <p class="rating">
+            <font-awesome-icon icon="fa-solid fa-star" /><span class="bold">
+              10
+            </span>
+          </p>
+        </div>
+        <p class="card-text">"he is really good"</p>
+      </div>
+    </div>
+    <a
+      href="#"
+      class="btn btn-danger container contact-button"
+      style="width: 22.5rem"
+      >Contact Technition</a
+    >
   </main>
 </template>
 
@@ -49,6 +83,7 @@ export default {
       windowWidth: 0,
       card: [],
       technicianData: [],
+      loading: false,
     };
   },
   mounted() {
@@ -68,7 +103,6 @@ export default {
   },
   methods: {
     averageRatings(reviewsArray) {
-      console.log(reviewsArray, "<<<<<<,reviews");
       let total = 0;
       reviewsArray.forEach((review) => {
         total += review.rating;
@@ -111,6 +145,7 @@ export default {
   font-size: 0.7rem;
   margin-bottom: 0px;
   padding-right: 15px;
+  margin-left: 10px;
 }
 
 .service-container {
@@ -135,5 +170,35 @@ a.btn.btn-danger {
   font-size: 0.7rem;
   font-weight: 500;
   margin-bottom: var(--bs-card-title-spacer-y);
+}
+.services-overall-title {
+  margin-left: 35px;
+  margin-right: 35px;
+  padding: 0px;
+  font-size: 1.1rem;
+  color: #242e30;
+  font-weight: 800;
+}
+.reviews-overall-title {
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #242e30;
+}
+.bold {
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.title-and-rating {
+  display: flex;
+}
+.contact-button {
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-top: 20px;
 }
 </style>
