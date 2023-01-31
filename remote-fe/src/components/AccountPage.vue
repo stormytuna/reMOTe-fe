@@ -10,9 +10,9 @@
                      <h5 class="my-3">John Smith</h5>
                      <p class="text-muted mb-2">@username</p>
                      <p class="text-muted mb-1">Technician/User</p>
-                     <div class="d-flex justify-content-center mb-2">
+                     <!-- <div class="d-flex justify-content-center mb-2">
                         <button type="button" class="btn btn-primary">Messages</button>
-                     </div>
+                     </div> -->
                   </div>
                </div>
                <div class="card mb-4 mb-lg-0">
