@@ -69,13 +69,15 @@ export default {
     setTimeout(() => {
       this.$nextTick(() => {
         this.intervalId = setInterval(() => {
-          this.$refs.scrollContainer.scrollLeft += this.direction;
-          this.scrollPosition += this.direction;
-          if (this.scrollPosition >= 30) {
-            this.direction = -1;
-          } else if (this.scrollPosition <= 0) {
-            this.direction = 1;
-            clearInterval(this.intervalId);
+          if (this.$refs.scrollContainer) {
+            this.$refs.scrollContainer.scrollLeft += this.direction;
+            this.scrollPosition += this.direction;
+            if (this.scrollPosition >= 30) {
+              this.direction = -1;
+            } else if (this.scrollPosition <= 0) {
+              this.direction = 1;
+              clearInterval(this.intervalId);
+            }
           }
         }, 15);
       });

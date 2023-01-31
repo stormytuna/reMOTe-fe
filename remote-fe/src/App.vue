@@ -3,6 +3,9 @@
     <router-link to="/about">About</router-link> -->
   <div>
     <Header />
+    <!-- <router-link :class="{ active: $route.name === 'Cart' }" to="/cart"
+      >Cart</router-link
+    > -->
     <!-- <Sike /> -->
     <router-view />
   </div>

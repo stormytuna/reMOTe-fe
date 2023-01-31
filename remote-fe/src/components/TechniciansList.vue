@@ -9,15 +9,18 @@
   <div v-else class="card-list">
     <h2 class="title">All Technicians</h2>
     <div class="card" v-for="card in cards" :key="card._id">
-      <router-link :to="{ path: '/technicians/technician_id' }">
-        <div class="card-item">
+      <!-- <router-link
+        :to="{ name: 'singleTechnician', params: { id: endpointValue } }"
+      > -->
+      <router-link :to="{ path: `/technicians/${card._id}` }">
+        <div class="card-item" :endpointValue="card._id">
           <img
             :style="{
               width: computedWidth,
               height: '144px',
               objectFit: 'cover',
             }"
-            :src="card.avatarUrl"
+            :src="card.technician.companyImage"
             class="card-img-top img-fluid"
             :alt="card.firstName"
           />
@@ -71,6 +74,7 @@
 import axios from "axios";
 export default {
   name: "TechniciansList",
+  props: ["endpointValue"],
 
   data() {
     return {
@@ -116,7 +120,14 @@ export default {
       reviewsArray.forEach((review) => {
         total += review.rating;
       });
-      return total / reviewsArray.length;
+      return (total / reviewsArray.length).toFixed(1);
+    },
+
+    redirect() {
+      this.$router.push({
+        name: "singleTechnician",
+        params: { id: this.endpointValue },
+      });
     },
   },
 };
