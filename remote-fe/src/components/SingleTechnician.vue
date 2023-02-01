@@ -149,8 +149,6 @@ export default {
 
     addItem(item) {
       createStore.commit("addItem", item);
-
-      console.log(createStore, "<<<<<<<<<<storee");
     },
     async fetchTechnician() {
       this.loading = true;
@@ -170,7 +168,6 @@ export default {
       }
     },
     showButton() {
-      console.log(createStore.state.basket, "<<<<<<<<<<<state");
       return createStore.state.basket.length !== 0;
     },
     basket() {
