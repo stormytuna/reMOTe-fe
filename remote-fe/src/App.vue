@@ -3,7 +3,8 @@
     <router-link to="/about">About</router-link> -->
   <div>
     <Header />
-    <router-view />
+    <LoginPage />
+    <!-- <router-view /> -->
 
   </div>
 
@@ -13,6 +14,7 @@
 import Header from "./components/Header.vue";
 import TechnicianPage from "./components/TechnicianPage.vue";
 import SingleTechnician from "./components/SingleTechnician.vue";
+import LoginPage from "./components/LoginPage.vue";
 
 export default {
   name: "App",
@@ -20,7 +22,8 @@ export default {
     Header,
     TechnicianPage,
     SingleTechnician,
-  },
+    LoginPage
+},
 };
 </script>
 

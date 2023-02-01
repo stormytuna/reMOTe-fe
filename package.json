@@ -8,7 +8,9 @@
     "@popperjs/core": "^2.11.6",
     "axios": "^1.2.6",
     "bootstrap": "^5.2.3",
+    "cookies-next": "^2.1.1",
     "font-awesome": "^4.7.0",
+    "jsonwebtoken": "^9.0.0",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.1.6",
     "vue-star-rating": "^1.7.0"
