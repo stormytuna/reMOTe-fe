@@ -1,6 +1,5 @@
 <template>
   <main class="container">
-   
     <ServiceCards />
     <TechnicianNavBar />
 
@@ -22,6 +21,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

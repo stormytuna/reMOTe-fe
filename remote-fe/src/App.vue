@@ -4,6 +4,7 @@
   <div>
     <Header />
     <TechnicianPage />
+    <Review @add-review="addReview" />
   </div>
 
   <!-- <router-view /> -->
@@ -12,12 +13,20 @@
 import Header from "./components/Header.vue";
 
 import TechnicianPage from "./components/TechnicianPage.vue";
+import Review from "./components/Review.vue";
 
 export default {
   name: "App",
   components: {
     Header,
     TechnicianPage,
+    Review,
+  },
+  methods: {
+    addReview(review) {
+      console.log([review]);
+      [review];
+    },
   },
 };
 </script>

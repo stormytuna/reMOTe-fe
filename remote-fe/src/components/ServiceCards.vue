@@ -95,7 +95,8 @@ export default {
   margin-top: 20px;
 }
 .card {
-  flex: 0 0 auto; /* fix card width */
+  flex: 0 0 auto;
+  /* fix card width */
   margin-right: 20px; /* add some space between cards */
   border: 0px;
   margin-bottom: 20px;
@@ -106,7 +107,7 @@ export default {
 }
 .card-text {
   font-size: 0.875rem;
-  padding-top: 10px
+  padding-top: 10px;
 }
 
 @media (max-width: 700px) {

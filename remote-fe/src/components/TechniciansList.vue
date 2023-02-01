@@ -463,6 +463,9 @@ export default {
   margin-right: 10px; /* add some space between cards */
   border: 0px;
   margin-bottom: 20px;
+  background: #eee;
+  /* padding: 10px; */
+  border-radius: 10px;
 }
 
 .card-img-top {
