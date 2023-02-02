@@ -1,5 +1,5 @@
 <template>
-  <main class="container">
+  <main>
     <div v-if="booked">
       <div class="alert alert-success" role="alert" style="width: 22.5rem">
         <h4 class="alert-heading">All Booked!</h4>
@@ -10,7 +10,9 @@
         </p>
 
         <hr />
-        <button type="button" class="btn btn-light">View Bookings</button>
+        <router-link :to="{ path: `/user/000000000000000000000000/bookings` }">
+          <button type="button" class="btn btn-light">View Bookings</button>
+        </router-link>
       </div>
     </div>
     <div v-else-if="items.length !== 0">
@@ -18,8 +20,8 @@
       <div class="card container" style="width: 22.5rem">
         <div v-for="(item, index) in items" :key="index" class="card-body">
           <h5 class="card-title">{{ item.name }}</h5>
-          <p class="card-text">
-            {{ `Price: £${item.price}` }}
+          <p class="card-text text-muted">
+            {{ `Price £${item.price}` }}
           </p>
 
           <a class="btn btn-primary" @click="removeItem(item)">Remove</a>
@@ -85,7 +87,6 @@ export default {
     postItem(items) {
       this.posted = false;
 
-
       items.forEach((item) => {
         const cart = {
           services: [
@@ -99,7 +100,7 @@ export default {
           fulfilledAt: null,
           servicedBy: "000000000000000000000012",
         };
-    
+
         axios
           .post(
             `https://remote-be.onrender.com/api/users/000000000000000000000000/orders`,
@@ -120,8 +121,9 @@ export default {
 
 <style scoped>
 .card-text {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #242e30;
+  margin-bottom: 0.5rem;
 }
 .card-title {
   font-weight: 700;
@@ -133,17 +135,16 @@ export default {
   margin-left: 35px;
   margin-right: 35px;
   margin-top: 35px;
-  margin-bottom: 20px;
   padding: 0px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #242e30;
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: rgb(33, 46, 48);
 }
 .text {
-  margin-top: 20px;
-  margin-left: 35px;
-  margin-right: 35px;
+  margin: 35px;
   font-weight: 600;
+  font-size: 1.1rem;
   color: #242e30;
 }
 .book-now {
@@ -167,7 +168,7 @@ export default {
   color: #242e30;
 }
 .alert {
-  margin-left: 20px;
+  margin-left: 33px;
 }
 .gap-2 {
   display: flex;
@@ -190,5 +191,12 @@ button.btn.btn-danger.book-now {
 }
 .go-back {
   margin-left: 30px;
+}
+.card {
+  border-radius: 15px;
+  padding: 12px;
+}
+a.btn.btn-primary {
+  font-size: 0.8rem;
 }
 </style>

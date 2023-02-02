@@ -7,6 +7,7 @@
     >
       <span class="visually-hidden">Loading...</span>
     </div>
+
     <div v-if="card">
       <img
         :style="{
@@ -58,7 +59,9 @@
               <div>
                 <h5 class="card-title">{{ service.name }}</h5>
 
-                <p class="card-text">{{ `Price: £${service.price}` }}</p>
+                <p class="card-text text-muted">
+                  {{ `Price £${service.price}` }}
+                </p>
               </div>
               <a class="btn btn-danger" @click="addItem(service)"
                 >Add to Basket</a
@@ -83,7 +86,7 @@
               </span>
             </p>
           </div>
-          <p class="card-text">{{ `"${review.reviewBody}"` }}</p>
+          <p class="card-text text-muted">{{ `"${review.reviewBody}"` }}</p>
           <!-- <a href="#" class="btn btn-danger">Delete</a> -->
         </div>
       </div>
@@ -138,6 +141,7 @@ export default {
     this.windowWidth = window.innerWidth;
     window.addEventListener("resize", this.handleResize);
   },
+
   methods: {
     averageRatings(reviewsArray) {
       let total = 0;
@@ -182,7 +186,6 @@ export default {
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 1.29;
-
   margin: 20px;
 }
 .reviews-number {
@@ -207,9 +210,10 @@ export default {
   border-radius: 10px;
   line-height: 1.5;
   color: #242e30;
+  padding: 12px;
 }
 .card-text {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 .card-title {
   font-weight: 700;
@@ -256,6 +260,11 @@ a.btn.btn-danger {
   margin-left: 35px;
   margin-right: 35px;
   margin-top: 20px;
+}
+a.btn.btn-danger.container.contact-button {
+  font-size: 0.9rem;
+  padding: 10px;
+  border-radius: 8px;
 }
 .spinner-border {
   margin-top: 80%;
