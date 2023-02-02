@@ -60,7 +60,7 @@
                 <h5 class="card-title">{{ service.name }}</h5>
 
                 <p class="card-text text-muted">
-                  {{ `Price £${service.price}` }}
+                  {{ `Price £${service.price / 100}` }}
                 </p>
               </div>
               <a class="btn btn-danger" @click="addItem(service)"
@@ -79,14 +79,15 @@
           :key="index"
         >
           <div class="title-and-rating">
-            <h5 class="card-title">{{ review._id }}</h5>
+            <h5 class="card-title">{{ review.reviewee.name }}</h5>
             <p class="rating">
               <font-awesome-icon icon="fa-solid fa-star" /><span class="bold">
                 {{ review.rating }}
               </span>
             </p>
           </div>
-          <p class="card-text text-muted">{{ `"${review.reviewBody}"` }}</p>
+          <p class="username text-muted">@{{ review.reviewee.username }}</p>
+          <p class="card-text ">{{ `"${review.reviewBody}"` }}</p>
           <!-- <a href="#" class="btn btn-danger">Delete</a> -->
         </div>
       </div>
@@ -282,5 +283,9 @@ a.btn.btn-danger.container.contact-button {
 }
 a.btn.btn-danger.container.contact-button {
   margin-bottom: 100px;
+}
+
+.username {
+  font-size: 0.9rem;
 }
 </style>

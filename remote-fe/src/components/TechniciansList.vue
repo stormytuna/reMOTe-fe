@@ -7,7 +7,7 @@
     <span class="visually-hidden">Loading...</span>
   </div>
   <div v-else class="card-list">
-    <h2 class="title">All Technicians</h2>
+    <h2 class="title">{{ sortedBy }}</h2>
     <div class="card" v-for="card in cards" :key="card._id">
       <!-- <router-link
         :to="{ name: 'singleTechnician', params: { id: endpointValue } }"
@@ -25,9 +25,7 @@
             :alt="card.firstName"
           />
           <p class="card-text company-name">
-            <span class="emphasise">{{
-              `${card.firstName} ${card.lastName}`
-            }}</span>
+            <span class="emphasise">{{ `${card.technician.company}` }}</span>
             {{ ` - ${card.address.postcode}` }}
           </p>
 
@@ -81,6 +79,7 @@ export default {
       loading: true,
       cards: null,
       windowWidth: 0,
+      sortedBy: "All Technicians",
     };
   },
   computed: {
@@ -92,17 +91,12 @@ export default {
       }
     },
   },
+  watch: {
+    $route: "fetchTechnicians",
+  },
 
   mounted() {
-    axios
-      .get("https://remote-be.onrender.com/api/technicians")
-      .then((response) => {
-        this.loading = false;
-        this.cards = response.data.technicians;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.fetchTechnician;
 
     this.windowWidth = window.innerWidth;
     window.addEventListener("resize", this.handleResize);
@@ -128,6 +122,31 @@ export default {
         name: "singleTechnician",
         params: { id: this.endpointValue },
       });
+    },
+
+    fetchTechnicians() {
+      let serviceQuery = this.$route.query.service || "";
+      let sortQuery = this.$route.query.sort_by || "reviews";
+      let orderQuery = this.$route.query.order || "asc";
+      let sortName = this.$route.query.service || "All";
+      this.sortedBy =
+        sortName.charAt(0).toUpperCase() + sortName.slice(1) + " Technicians";
+
+      axios
+        .get("https://remote-be.onrender.com/api/technicians", {
+          params: {
+            service: serviceQuery,
+            sort_by: sortQuery,
+            order: orderQuery,
+          },
+        })
+        .then((response) => {
+          this.loading = false;
+          this.cards = response.data.technicians;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
@@ -176,6 +195,8 @@ export default {
   font-weight: 700;
   font-size: 1.6rem;
   color: rgb(33, 46, 48);
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .company-name {
   font-size: 0.8rem;

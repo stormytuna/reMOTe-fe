@@ -12,9 +12,13 @@
       </a>
 
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Price</a></li>
-        <li><a class="dropdown-item" href="#">Reviews</a></li>
-        <li><a class="dropdown-item" href="#">Distance</a></li>
+        <!-- <li><a class="dropdown-item" href="#">Price</a></li> -->
+        <li>
+          <a class="dropdown-item" @click="updateQuery('reviews')">Reviews</a>
+        </li>
+        <li>
+          <a class="dropdown-item" @click="updateQuery('rating')">Rating</a>
+        </li>
       </ul>
       <a
         class="btn btn-secondary dropdown-toggle"
@@ -27,8 +31,8 @@
       </a>
 
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Asc</a></li>
-        <li><a class="dropdown-item" href="#">Desc</a></li>
+        <li><a class="dropdown-item" @click="updateQuery('asc')">Asc</a></li>
+        <li><a class="dropdown-item" @click="updateQuery('desc')">Desc</a></li>
       </ul>
     </div>
 
@@ -48,9 +52,38 @@
 <script>
 export default {
   name: "TechnicianNavBar",
+  data() {
+    return {
+      query: "",
+      query2: "",
+    };
+  },
   computed: {
     screenWidth() {
       return window.innerWidth;
+    },
+  },
+  methods: {
+    updateQuery(newQuery) {
+      if (newQuery === "reviews" || newQuery === "rating") {
+        this.query = newQuery;
+      } else if (newQuery === "asc" || newQuery === "desc") {
+        this.query2 = newQuery;
+      }
+
+      if (Object.keys(this.$route.query).length === 0) {
+        this.$router.push({
+          query: { sort_by: this.query, order: this.query2 },
+        });
+      } else {
+        this.$router.push({
+          query: {
+            service: this.$route.query.service,
+            sort_by: this.query,
+            order: this.query2,
+          },
+        });
+      }
     },
   },
 };

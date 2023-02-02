@@ -7,14 +7,18 @@
         <div class="card mb-4">
           <div class="card-body text-center">
             <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+              :src="user.avatarUrl"
               alt="avatar"
               class="rounded-circle img-fluid"
               style="width: 150px"
             />
-            <h5 class="my-3 emphasise">John Smith</h5>
-            <p class="text-muted mb-2 text">@username</p>
-            <p class="text-muted mb-1 text">Technician/User</p>
+            <h5 class="my-3 emphasise">
+              {{ user.firstName + " " + user.lastName }}
+            </h5>
+            <p class="text-muted mb-2 text">@{{ user.username }}</p>
+            <p class="text-muted mb-1 text">
+              {{ user.technician ? "Technician account" : "User account" }}
+            </p>
             <!-- <div class="d-flex justify-content-center mb-2">
                          <button type="button" class="btn btn-primary">Messages</button>
                       </div> -->
@@ -29,7 +33,9 @@
                   <p class="mb-0 card-title">Full Name</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0 text">Johnatan Smith</p>
+                  <p class="text-muted mb-0 text">
+                    {{ user.firstName + " " + user.lastName }}
+                  </p>
                 </div>
               </div>
               <hr />
@@ -40,7 +46,7 @@
                   <p class="mb-0 card-title">Email</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0 text">example@example.com</p>
+                  <p class="text-muted mb-0 text">{{ user.contact.email }}</p>
                 </div>
                 <!-- </div> -->
                 <div class="col-sm-9">
@@ -54,18 +60,12 @@
                   <p class="mb-0 card-title">Phone</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0 text">0800 2344-5678</p>
+                  <p class="text-muted mb-0 text">
+                    {{ user.contact.phoneNumber }}
+                  </p>
                 </div>
               </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 card-title">Mobile</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0 text">+44 7655-4321</p>
-                </div>
-              </div>
+
               <hr />
               <div class="row">
                 <div class="col-sm-3">
@@ -73,25 +73,24 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0 text">
-                    Bay Area, San Francisco, CA
+                    {{ user.address.addressLine }}
                   </p>
                 </div>
-                <div class="col-sm-3">
-                  <p class="text-muted mb-0 text">Post Code</p>
-                </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0 text">KF76 9LM</p>
+                  <p class="text-muted mb-0 text">
+                    {{ user.address.postcode }}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
           <!-- <div v-if="user.technician.length > 0"> -->
-          <div class="card mb-4 mb-lg-0">
+          <!-- <div class="card mb-4 mb-lg-0">
             <div class="card-body p-0">
               <ul class="list-group list-group-flush rounded-3">
                 <div class="card-body">
-                  <h5 class="my-2 services-overall-title">Services</h5>
-                  <!-- <div
+                  <h5 class="my-2 services-overall-title">Services</h5> -->
+          <!-- <div
                   class="card-body"
                   v-for="(service, index) in card.technician.services"
                   :key="index"
@@ -104,16 +103,17 @@
                     </div>
                   </div>
                 </div> -->
-                </div>
+          <!-- </div>
               </ul>
             </div>
-          </div>
+          </div> -->
           <!-- </div> -->
         </div>
         <div class="card mb-4">
           <div class="card-body">
             <ul class="list-group list-group-flush rounded-3">
               <h5 class="my-2 services-overall-title">Reviews</h5>
+              <p class="text-muted mb-0 text">You have no reviews</p>
             </ul>
           </div>
         </div>
@@ -123,14 +123,18 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  name: "AccountPage",
   data() {
     return {
       loading: true,
       user: null,
     };
   },
-  name: "AccountPage",
+  created() {
+    this.fetchTechnician();
+  },
   methods: {
     async fetchTechnician() {
       this.loading = true;
@@ -139,6 +143,7 @@ export default {
       );
       this.loading = false;
       this.user = response.data.user;
+      console.log(this.user);
     },
   },
 };

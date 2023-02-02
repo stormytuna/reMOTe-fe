@@ -60,7 +60,7 @@
                 {{ `"${booking.services[0].description}"` }}
               </p> -->
                     <p class="card-text description">
-                      {{ `£${booking.services[0].price}` }}
+                      {{ `£${booking.services[0].price / 100}` }}
                     </p>
                   </div>
                   <div v-if="booking.fulfilledAt === null">
@@ -161,7 +161,7 @@ export default {
   border-radius: 10px;
   line-height: 1.5;
   color: #242e30;
-  padding:12px
+  padding: 12px;
 }
 .card-text {
   font-size: 0.8rem;

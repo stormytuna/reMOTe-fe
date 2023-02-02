@@ -15,17 +15,6 @@
     </div>
     <div v-else>
       <h2 class="Title">Leave a review</h2>
-      <!-- <select
-      class="form-select form-select-lg mb-3"
-      aria-label=".form-select-lg example"
-    >
-      <option selected>Rate your technician</option>
-      <option value="1">One star</option>
-      <option value="2">Two star</option>
-      <option value="3">Three star</option>
-      <option value="4">Four star</option>
-      <option value="5">Five star</option>
-    </select> -->
       <div class="card mb-4">
         <form @submit="onSubmit" class="form-container">
           <p class="form-label">What do you rate your technician?</p>
@@ -109,15 +98,6 @@
           </div>
           <button type="submit" class="btn btn-danger">Submit</button>
         </form>
-        <!-- <form @submit="onSubmit">
-      <div class="add_comment">
-        <label>Add Review : </label>
-        <input v-model="text" type="text" />
-      </div>
-      <button type="submit">Add</button>
-    </form>
-
-    {{ review }} -->
       </div>
     </div>
   </div>
@@ -142,11 +122,10 @@ export default {
         rating: +this.starRating,
         reviewedBy: "000000000000000000000000",
       };
-      console.log(newReview, "<<<<add review");
       this.posted = true;
       axios
         .post(
-          `https://remote-be.onrender.com/api/users/${this.$route.params.user_id}/reviews`,
+          `https://remote-be.onrender.com/api/technicians/${this.$route.params.user_id}/reviews`,
           newReview
         )
         .then((data) => {
@@ -158,9 +137,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-
-      //   this.$emit("add-review", addReview);
-      //   this.text = "";
     },
   },
 };
