@@ -3,7 +3,10 @@
     <router-link to="/about">About</router-link> -->
   <div>
     <Header />
-    <router-view />
+    <!-- <LoginPage /> -->
+    <!-- <Registration /> -->
+    <RegistrationTech />
+    <!-- <router-view /> -->
 
   </div>
 
@@ -13,6 +16,10 @@
 import Header from "./components/Header.vue";
 import TechnicianPage from "./components/TechnicianPage.vue";
 import SingleTechnician from "./components/SingleTechnician.vue";
+import LoginPage from "./components/LoginPage.vue";
+import Registration from "./components/Registration.vue";
+import { createStore } from "vuex";
+import RegistrationTech from "./components/RegistrationTech.vue";
 
 export default {
   name: "App",
@@ -20,7 +27,11 @@ export default {
     Header,
     TechnicianPage,
     SingleTechnician,
-  },
+    LoginPage,
+    Registration,
+    RegistrationTech
+},
+  store: createStore
 };
 </script>
 
