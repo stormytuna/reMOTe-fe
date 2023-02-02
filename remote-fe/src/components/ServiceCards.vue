@@ -6,8 +6,14 @@
   >
     <div class="container scrollContainer" ref="scrollContainer">
       <div class="card-list">
+        <a href="#">
+          <div class="card" style="width: 9rem">
+            <img :src="allTechs" class="card-img-top" :alt="'all'" />
+            <p class="card-text">All technicians</p>
+          </div>
+        </a>
         <div class="card" v-for="card in cards" :key="card.name">
-          <div style="width: 9rem">
+          <div style="width: 9rem" @click="updateQuery(card.name)">
             <img :src="card.img_url" class="card-img-top" :alt="card.alt" />
             <p class="card-text">{{ card.name }}</p>
           </div>
@@ -22,6 +28,9 @@ export default {
   name: "ServiceCards",
   data() {
     return {
+      query: "",
+      allTechs:
+        "https://fsd.servicemax.com/uk/wp-content/uploads/sites/5/2020/10/shutterstock_1465371635.jpg",
       cards: [
         {
           name: "MOT",
@@ -69,17 +78,25 @@ export default {
     setTimeout(() => {
       this.$nextTick(() => {
         this.intervalId = setInterval(() => {
-          this.$refs.scrollContainer.scrollLeft += this.direction;
-          this.scrollPosition += this.direction;
-          if (this.scrollPosition >= 30) {
-            this.direction = -1;
-          } else if (this.scrollPosition <= 0) {
-            this.direction = 1;
-            clearInterval(this.intervalId);
+          if (this.$refs.scrollContainer) {
+            this.$refs.scrollContainer.scrollLeft += this.direction;
+            this.scrollPosition += this.direction;
+            if (this.scrollPosition >= 30) {
+              this.direction = -1;
+            } else if (this.scrollPosition <= 0) {
+              this.direction = 1;
+              clearInterval(this.intervalId);
+            }
           }
         }, 15);
       });
     }, 2000);
+  },
+  methods: {
+    updateQuery(newQuery) {
+      this.query = newQuery;
+      this.$router.push({ query: { service: this.query } });
+    },
   },
 };
 </script>
@@ -133,5 +150,8 @@ export default {
 ::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+}
+a {
+  color: rgb(33, 46, 48);
 }
 </style>
